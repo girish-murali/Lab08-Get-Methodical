@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class DevTest {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        SafeInput.prettyHeader("DevTest Running"); 
+
+        // Test Part A: getNonZeroLenString
+        String name = SafeInput.getNonZeroLenString(in, "Enter your full name");
+        System.out.println("Result (Name): " + name);
+
+        // Test Part B: getInt
+        int age = SafeInput.getInt(in, "Enter your age");
+        System.out.println("Result (Age): " + age);
+
+        // Test Part C: getDouble
+        double salary = SafeInput.getDouble(in, "Enter your salary");
+        System.out.println("Result (Salary): " + salary);
+
+        // Test Part D: getRangedInt
+        int choice = SafeInput.getRangedInt(in, "Enter a menu choice", 1, 10);
+        System.out.println("Result (Choice): " + choice);
+
+        // Test Part E: getRangedDouble
+        double price = SafeInput.getRangedDouble(in, "Enter item price", 5.0, 15.0);
+        System.out.println("Result (Price): " + price);
+
+        // Test Part F: getYNConfirm
+        boolean isEmployed = SafeInput.getYNConfirm(in, "Are you currently employed?");
+        System.out.println("Result (Employed): " + isEmployed);
+
+        // Test Part G: getRegExString (SSN Pattern)
+        String ssn = SafeInput.getRegExString(in, "Enter your SSN", "^\\d{3}-\\d{2}-\\d{4}$");
+        System.out.println("Result (SSN): " + ssn);
+    }
+}
