@@ -1,0 +1,35 @@
+public class CtoFTableDisplay
+{
+    public static void main(String[] args)
+    {
+        System.out.println("--- Celsius to Fahrenheit Conversion Table ---");
+        // Print the header lines
+        System.out.println("----------------------------------------------");
+        System.out.printf("%-15s %15s\n", "Celsius (°C)", "Fahrenheit (°F)");
+        System.out.println("----------------------------------------------");
+
+        // Loop from -100 to 100 degrees Celsius [cite: 184]
+        for (int celsius = -100; celsius <= 100; celsius++)
+        {
+            // Call the CtoF method
+            double fahrenheit = CtoF(celsius);
+            
+            // Display values in two columns with printf
+            System.out.printf("%-15d %15.2f\n", celsius, fahrenheit);
+        }
+        System.out.println("----------------------------------------------");
+    }
+
+    /**
+     * Converts a Celsius temperature to its Fahrenheit equivalent.
+     * Formula: F = (C * 9/5) + 32
+     * This is the required one-off static method [cite: 179-182].
+     * @param Celsius The temperature in degrees Celsius (double).
+     * @return The equivalent temperature in degrees Fahrenheit (double).
+     */
+    public static double CtoF(double Celsius)
+    {
+        // Use 1.8 for (9/5) for accurate double calculation
+        return (Celsius * 1.8) + 32;
+    }
+}
