@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class CheckOut
+{
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        double totalCost = 0.0;
+        boolean hasMoreItems = false;
+
+        do
+        {
+            // Get item price (.50 to 10.00) using getRangedDouble (Part E)
+            double itemPrice = SafeInput.getRangedDouble(in, "Enter the price of your item", 0.50, 10.00);
+            totalCost += itemPrice;
+
+            // Ask if the user has more items using getYNConfirm (Part F)
+            hasMoreItems = SafeInput.getYNConfirm(in, "Do you have another item to check out?");
+
+        } while (hasMoreItems);
+
+        // Display the total cost to 2 decimal places with printf [cite: 148]
+        System.out.printf("\nYour total cost is: $%.2f\n", totalCost);
+    }
+}
