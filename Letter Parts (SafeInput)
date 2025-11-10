@@ -1,199 +1,249 @@
 import java.util.Scanner;
 
-public class SafeInput { // <-- CLASS START
-
-    // Part A: getNonZeroLenString
-    public static String getNonZeroLenString(Scanner pipe, String prompt) {
-        String retString = "";
-        do {
-            System.out.print("\n" + prompt + ": ");
+public class SafeInput
+{
+    /**
+     * Part A: getNonZeroLenString
+     * Prompts the user for a String and ensures it is not a zero-length (blank) String.
+     * @param pipe a Scanner opened to read from System.in
+     * @param prompt prompt for the user
+     * @return a String response that is not zero length
+     */
+    public static String getNonZeroLenString(Scanner pipe, String prompt)
+    {
+        String retString = ""; // Set this to zero length. Loop runs until it isn't
+        do
+        {
+            System.out.print("\n" +prompt + ": "); // show prompt add space
             retString = pipe.nextLine();
-        } while (retString.length() == 0);
-        return retString;
-    } // <-- Method A end
+        }while(retString.length() == 0);
 
-    // Part B: getInt
-    public static int getInt(Scanner pipe, String prompt) {
+        return retString;
+    }
+
+    /**
+     * Part B: getInt
+     * Prompts the user for an integer and loops until valid integer input is received.
+     * Bullet-proofs input using hasNext methods and clearing the pipe (newline fix).
+     * @param pipe   The Scanner object used for input.
+     * @param prompt The message to display to the user.
+     * @return The validated integer input.
+     */
+    public static int getInt(Scanner pipe, String prompt)
+    {
         int retInt = 0;
         String trash = "";
         boolean done = false;
 
-        do {
+        do
+        {
             System.out.print("\n" + prompt + ": ");
-            if (pipe.hasNextInt()) {
+            if(pipe.hasNextInt())
+            {
                 retInt = pipe.nextInt();
-                pipe.nextLine();
+                pipe.nextLine(); // Clear the newline from the buffer [cite: 80]
                 done = true;
-            } else {
-                trash = pipe.nextLine();
-                System.out.println("Invalid input. You entered: " + trash);
-                System.out.println("Please enter a valid integer.");
             }
-        } while (!done);
+            else
+            {
+                trash = pipe.nextLine(); // Read the trash [cite: 80]
+                System.out.println("Invalid input: " + trash + ". You must enter an integer.");
+            }
+        } while(!done);
 
         return retInt;
-    } // <-- Method B end
+    }
 
-    // Part C: getDouble
-    public static double getDouble(Scanner pipe, String prompt) {
-        double retDouble = 0.0;
+    /**
+     * Part C: getDouble
+     * Prompts the user for a double and loops until valid double input is received.
+     * Bullet-proofs input using hasNext methods and clearing the pipe (newline fix).
+     * @param pipe   The Scanner object used for input.
+     * @param prompt The message to display to the user.
+     * @return The validated double input.
+     */
+    public static double getDouble(Scanner pipe, String prompt)
+    {
+        double retDouble = 0;
         String trash = "";
         boolean done = false;
 
-        do {
+        do
+        {
             System.out.print("\n" + prompt + ": ");
-            if (pipe.hasNextDouble()) {
+            if(pipe.hasNextDouble())
+            {
                 retDouble = pipe.nextDouble();
-                pipe.nextLine();
+                pipe.nextLine(); // Clear the newline from the buffer [cite: 87]
                 done = true;
-            } else {
-                trash = pipe.nextLine();
-                System.out.println("Invalid input. You entered: " + trash);
-                System.out.println("Please enter a valid double value.");
             }
-        } while (!done);
+            else
+            {
+                trash = pipe.nextLine(); // Read the trash [cite: 87]
+                System.out.println("Invalid input: " + trash + ". You must enter a double value.");
+            }
+        } while(!done);
 
         return retDouble;
-    } // <-- Method C end
+    }
 
-    // Part D: getRangedInt
-    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+    /**
+     * Part D: getRangedInt
+     * Prompts the user for an integer within a specified inclusive range [low, high].
+     * Appends the range to the user-supplied prompt[cite: 98].
+     * @param pipe   The Scanner object used for input.
+     * @param prompt The message to display to the user.
+     * @param low    The minimum valid integer (inclusive)[cite: 93].
+     * @param high   The maximum valid integer (inclusive)[cite: 93].
+     * @return The validated integer within the specified range.
+     */
+    public static int getRangedInt(Scanner pipe, String prompt, int low, int high)
+    {
         int retInt = 0;
         String trash = "";
         boolean done = false;
+        String fullPrompt = prompt + " [" + low + " - " + high + "]: "; // Append range to prompt [cite: 98]
 
-        do {
-            String fullPrompt = prompt + " [" + low + " - " + high + "]";
-            System.out.print("\n" + fullPrompt + ": ");
-
-            if (pipe.hasNextInt()) {
+        do
+        {
+            System.out.print("\n" + fullPrompt);
+            if(pipe.hasNextInt())
+            {
                 retInt = pipe.nextInt();
-                pipe.nextLine();
+                pipe.nextLine(); // Clear the newline from the buffer
 
-                if (retInt >= low && retInt <= high) {
+                if(retInt >= low && retInt <= high)
+                {
                     done = true;
-                } else {
-                    System.out.println("Invalid range. You must enter a value between " + low + " and " + high + ".");
                 }
-            } else {
-                trash = pipe.nextLine();
-                System.out.println("Invalid input. You entered: " + trash);
-                System.out.println("Please enter a valid integer.");
+                else
+                {
+                    System.out.println("Invalid input: " + retInt + ". Must be within the inclusive range [" + low + " - " + high + "]");
+                }
             }
-        } while (!done);
+            else
+            {
+                trash = pipe.nextLine();
+                System.out.println("Invalid input: " + trash + ". You must enter an integer.");
+            }
+        } while(!done);
 
         return retInt;
-    } // <-- Method D end
+    }
 
-    // Part E: getRangedDouble
-    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
-        double retDouble = 0.0;
+    /**
+     * Part E: getRangedDouble
+     * Prompts the user for a double within a specified inclusive range [low, high].
+     * Appends the range to the user-supplied prompt[cite: 107].
+     * @param pipe   The Scanner object used for input.
+     * @param prompt The message to display to the user.
+     * @param low    The minimum valid double (inclusive).
+     * @param high   The maximum valid double (inclusive).
+     * @return The validated double within the specified range.
+     */
+    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high)
+    {
+        double retDouble = 0;
         String trash = "";
         boolean done = false;
+        String fullPrompt = prompt + " [" + low + " - " + high + "]: "; // Append range to prompt [cite: 107]
 
-        do {
-            String fullPrompt = prompt + " [" + low + " - " + high + "]";
-            System.out.print("\n" + fullPrompt + ": ");
-
-            if (pipe.hasNextDouble()) {
+        do
+        {
+            System.out.print("\n" + fullPrompt);
+            if(pipe.hasNextDouble())
+            {
                 retDouble = pipe.nextDouble();
-                pipe.nextLine();
+                pipe.nextLine(); // Clear the newline from the buffer
 
-                if (retDouble >= low && retDouble <= high) {
+                if(retDouble >= low && retDouble <= high)
+                {
                     done = true;
-                } else {
-                    System.out.println("Invalid range. You must enter a value between " + low + " and " + high + ".");
                 }
-            } else {
-                trash = pipe.nextLine();
-                System.out.println("Invalid input. You entered: " + trash);
-                System.out.println("Please enter a valid double value.");
+                else
+                {
+                    System.out.println("Invalid input: " + retDouble + ". Must be within the inclusive range [" + low + " - " + high + "]");
+                }
             }
-        } while (!done);
+            else
+            {
+                trash = pipe.nextLine();
+                System.out.println("Invalid input: " + trash + ". You must enter a double value.");
+            }
+        } while(!done);
 
         return retDouble;
-    } // <-- Method E end
+    }
 
-    // Part F: getYNConfirm
-    public static boolean getYNConfirm(Scanner pipe, String prompt) {
-        String input = "";
+    /**
+     * Part F: getYNConfirm
+     * Prompts for a Yes or No input, accepts 'y', 'Y', 'n', or 'N'[cite: 113].
+     * Returns true for 'Y'/'y' and false for 'N'/'n'[cite: 112].
+     * @param pipe   The Scanner object used for input.
+     * @param prompt The message to display to the user.
+     * @return true if 'Y' or 'y' is entered, false if 'N' or 'n' is entered.
+     */
+    public static boolean getYNConfirm(Scanner pipe, String prompt)
+    {
+        String retString = "";
         boolean done = false;
-        boolean retVal = false;
+        boolean confirmation = false;
+        String fullPrompt = prompt + " [Y/N]: ";
 
-        do {
-            System.out.print("\n" + prompt + " [Y/N]: ");
-            input = pipe.nextLine();
+        do
+        {
+            System.out.print("\n" + fullPrompt);
+            retString = pipe.nextLine().trim();
 
-            if (input.equalsIgnoreCase("Y")) {
-                retVal = true;
+            if (retString.equalsIgnoreCase("Y"))
+            {
+                confirmation = true;
                 done = true;
-            } else if (input.equalsIgnoreCase("N")) {
-                retVal = false;
+            }
+            else if (retString.equalsIgnoreCase("N"))
+            {
+                confirmation = false;
                 done = true;
-            } else {
-                System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+            }
+            else
+            {
+                System.out.println("Invalid input: " + retString + ". You must enter 'Y' (Yes) or 'N' (No).");
             }
         } while (!done);
 
-        return retVal;
-    } // <-- Method F end
+        return confirmation;
+    }
 
-    // Part G: getRegExString
-    public static String getRegExString(Scanner pipe, String prompt, String regEx) {
+    /**
+     * Part G: getRegExString
+     * Prompts the user for a String that must match a specified Java RegEx pattern[cite: 120, 124].
+     * @param pipe   The Scanner object used for input.
+     * @param prompt The message to display to the user.
+     * @param regEx  The regular expression pattern the input must match.
+     * @return The validated String that matches the RegEx pattern.
+     */
+    public static String getRegExString(Scanner pipe, String prompt, String regEx)
+    {
         String retString = "";
         boolean done = false;
+        String displayRegEx = regEx.replace("\\", "\\\\"); // Prepare RegEx for better display
+        String fullPrompt = prompt + " (Pattern: " + displayRegEx + "): ";
 
-        do {
-            System.out.print("\n" + prompt + " (" + regEx + "): ");
+        do
+        {
+            System.out.print("\n" + fullPrompt);
             retString = pipe.nextLine();
 
-            if (retString.matches(regEx)) {
+            if (retString.matches(regEx))
+            {
                 done = true;
-            } else {
-                System.out.println("Invalid input. The input must match the pattern: " + regEx);
+            }
+            else
+            {
+                System.out.println("Invalid input. The input: '" + retString + "' must match the pattern: " + regEx);
             }
         } while (!done);
 
         return retString;
-    } // <-- Method G end
-
-    // Part H: prettyHeader (No Scanner required)
-    public static void prettyHeader(String msg) {
-        int width = 60;
-        int msgLen = msg.length();
-        int starBorder = 3;
-
-        // 1. Top row
-        for (int i = 0; i < width; i++) {
-            System.out.print("*");
-        }
-        System.out.println();
-
-        // 2. Middle row
-        int availableSpace = width - (starBorder * 2) - msgLen;
-        int spaceBefore = availableSpace / 2;
-        int spaceAfter = availableSpace - spaceBefore;
-
-        System.out.print("***"); // Left border
-
-        // Spaces before
-        for (int i = 0; i < spaceBefore; i++) {
-            System.out.print(" ");
-        }
-
-        System.out.print(msg); // Message
-
-        // Spaces after
-        for (int i = 0; i < spaceAfter; i++) {
-            System.out.print(" ");
-        }
-
-        System.out.println("***"); // Right border
-
-        // 3. Bottom row
-        for (int i = 0; i < width; i++) {
-            System.out.print("*");
-        }
-        System.out.println();
-    } // <-- Method H end
-} // <-- CLASS END: This final brace resolves the "reached end of file" error
+    }
+}
