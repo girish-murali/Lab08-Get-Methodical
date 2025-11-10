@@ -1,0 +1,12 @@
+public class PrettyHeader
+{
+    public static void main(String[] args)
+    {
+        // Test the prettyHeader method
+        SafeInput.prettyHeader("Program 06: The Pretty Header Test");
+        System.out.println();
+        SafeInput.prettyHeader("A Short Msg");
+        System.out.println();
+        SafeInput.prettyHeader("This is a much longer message to ensure centering still works");
+    }
+}
