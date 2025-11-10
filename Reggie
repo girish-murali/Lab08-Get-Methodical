@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Reggie
+{
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        String ssn = "";
+        String mNumber = "";
+        String menuChoice = "";
+
+        // 1. Get SSN (###-##-####) [cite: 153]
+        String ssnRegEx = "^\\d{3}-\\d{2}-\\d{4}$";
+        ssn = SafeInput.getRegExString(in, "Enter your Social Security Number", ssnRegEx);
+        System.out.println("SSN entered: " + ssn);
+
+        // 2. Get UC Student M number (M/m#####) [cite: 154]
+        String mNumberRegEx = "^[M|m]\\d{5}$";
+        mNumber = SafeInput.getRegExString(in, "Enter your UC Student M Number", mNumberRegEx);
+        System.out.println("M-Number entered: " + mNumber);
+
+        // 3. Get Menu Choice (O, o, S, s, V, v, Q, q) [cite: 155]
+        // Open Save View Quit mnemonics [cite: 156]
+        String menuRegEx = "^[OoSsVvQq]$";
+        menuChoice = SafeInput.getRegExString(in, "Enter a menu choice (O, S, V, or Q)", menuRegEx);
+        System.out.println("Menu Choice entered: " + menuChoice);
+    }
+}
