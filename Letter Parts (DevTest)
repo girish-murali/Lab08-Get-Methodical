@@ -1,36 +1,51 @@
 import java.util.Scanner;
 
-public class DevTest {
-    public static void main(String[] args) {
+public class DevTest
+{
+    public static void main(String[] args)
+    {
         Scanner in = new Scanner(System.in);
-        SafeInput.prettyHeader("DevTest Running"); 
 
-        // Test Part A: getNonZeroLenString
-        String name = SafeInput.getNonZeroLenString(in, "Enter your full name");
-        System.out.println("Result (Name): " + name);
+        // --- Part A Test: getNonZeroLenString ---
+        System.out.println("--- Testing getNonZeroLenString ---");
+        String name = SafeInput.getNonZeroLenString(in, "Enter your name");
+        System.out.println("Result: Your name is " + name);
 
-        // Test Part B: getInt
-        int age = SafeInput.getInt(in, "Enter your age");
-        System.out.println("Result (Age): " + age);
 
-        // Test Part C: getDouble
-        double salary = SafeInput.getDouble(in, "Enter your salary");
-        System.out.println("Result (Salary): " + salary);
+        // --- Part B Test: getInt ---
+        System.out.println("\n--- Testing getInt ---");
+        int myInt = SafeInput.getInt(in, "Enter any unconstrained integer");
+        System.out.println("Result: The unconstrained integer is " + myInt);
 
-        // Test Part D: getRangedInt
-        int choice = SafeInput.getRangedInt(in, "Enter a menu choice", 1, 10);
-        System.out.println("Result (Choice): " + choice);
 
-        // Test Part E: getRangedDouble
-        double price = SafeInput.getRangedDouble(in, "Enter item price", 5.0, 15.0);
-        System.out.println("Result (Price): " + price);
+        // --- Part C Test: getDouble ---
+        System.out.println("\n--- Testing getDouble ---");
+        double myDouble = SafeInput.getDouble(in, "Enter any unconstrained double");
+        System.out.println("Result: The unconstrained double is " + myDouble);
 
-        // Test Part F: getYNConfirm
-        boolean isEmployed = SafeInput.getYNConfirm(in, "Are you currently employed?");
-        System.out.println("Result (Employed): " + isEmployed);
 
-        // Test Part G: getRegExString (SSN Pattern)
-        String ssn = SafeInput.getRegExString(in, "Enter your SSN", "^\\d{3}-\\d{2}-\\d{4}$");
-        System.out.println("Result (SSN): " + ssn);
+        // --- Part D Test: getRangedInt ---
+        System.out.println("\n--- Testing getRangedInt (Range 10 - 20) ---");
+        int rangeInt = SafeInput.getRangedInt(in, "Enter an integer within the range", 10, 20);
+        System.out.println("Result: The ranged integer is " + rangeInt);
+
+
+        // --- Part E Test: getRangedDouble ---
+        System.out.println("\n--- Testing getRangedDouble (Range 1.5 - 5.5) ---");
+        double rangeDouble = SafeInput.getRangedDouble(in, "Enter a double within the range", 1.5, 5.5);
+        System.out.println("Result: The ranged double is " + rangeDouble);
+
+
+        // --- Part F Test: getYNConfirm ---
+        System.out.println("\n--- Testing getYNConfirm ---");
+        boolean confirm = SafeInput.getYNConfirm(in, "Would you like to continue?");
+        System.out.println("Result: Confirmation is " + confirm);
+
+
+        // --- Part G Test: getRegExString ---
+        System.out.println("\n--- Testing getRegExString (Pattern: ^A\\d{3}$) ---");
+        // Example: Must be 'A' followed by exactly 3 digits (e.g., A123)
+        String regExString = SafeInput.getRegExString(in, "Enter a string that starts with 'A' and ends with 3 digits", "^A\\d{3}$");
+        System.out.println("Result: The RegEx string is " + regExString);
     }
 }
